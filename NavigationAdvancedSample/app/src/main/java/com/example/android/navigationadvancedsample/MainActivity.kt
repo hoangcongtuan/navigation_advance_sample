@@ -16,9 +16,11 @@
 
 package com.example.android.navigationadvancedsample
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -52,6 +54,11 @@ class MainActivity : AppCompatActivity() {
             setOf(R.id.titleScreen, R.id.leaderboard,  R.id.register)
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        val request = NavDeepLinkRequest.Builder
+            .fromUri(Uri.parse("http://www.example.com/users"))
+            .build()
+        navController.navigate(request)
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -15,15 +15,18 @@
  */
 
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs'
+apply from: '../dependencies.gradle'
+apply plugin: 'kotlin-parcelize'
 
 android {
-    compileSdkVersion build_versions.compile_sdk
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.example.android.navigationadvancedsample"
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
+        minSdkVersion 21
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -46,27 +49,50 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation deps.kotlin.stdlib
-    implementation deps.app_compat
-    implementation deps.material
-    implementation deps.core_ktx
-    implementation deps.constraint_layout
-    implementation deps.arch_core.runtime
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.core:core-ktx:$core_ktx_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.multidex:multidex:$multidex_version"
+    implementation 'androidx.activity:activity-ktx:1.5.0-alpha01'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha01"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha01"
 
-    // Navigation
-    implementation deps.navigation.runtime_ktx
-    implementation deps.navigation.fragment_ktx
-    implementation deps.navigation.ui_ktx
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
 
-    // Android Testing Support Library's runner and rules
-    androidTestImplementation deps.atsl.runner
-    androidTestImplementation deps.atsl.rules
-    androidTestImplementation deps.room.testing
-    androidTestImplementation deps.arch_core.testing
+    //viewpager2
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
-    // Espresso UI Testing
-    androidTestImplementation deps.espresso.core
-    androidTestImplementation deps.espresso.contrib
-    androidTestImplementation deps.espresso.intents
+    //coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
 
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    kapt 'com.github.bumptech.glide:compiler:4.12.0'
+
+    implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"
+
+    // Kotlin
+    implementation "androidx.preference:preference-ktx:$preference_version"
+
+    // Navigation Component
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-runtime-ktx:$nav_version"
+
+    // Room
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+
+    //fragment ktx
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
 }
